@@ -3,14 +3,23 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ShelterModule } from './shelter/shelter.module';
 import { MongooseModule } from '@nestjs/mongoose';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 
 require('dotenv').config();
 
 @Module({
-  imports: [ShelterModule, MongooseModule.forRoot(
-    `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASS}@piclescluster.e9urls1.mongodb.net/picles?retryWrites=true&w=majority&appName=Piclescluster`
-  )],
+  imports: [
+    ConfigModule.forRoot(),
+    MongooseModule.forRootAsync ({
+    imports: [ConfigModule],
+    inject: [ConfigService],
+    useFactory: async (config: ConfigService) => ({
+      uri: config.get<string>('DB_CONNECTION_STRING'),
+    }),
+  }),
+  ShelterModule,
+],
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule {}
+export class AppModule { }
