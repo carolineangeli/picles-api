@@ -9,8 +9,8 @@ export default class PetRepository implements IPetRepository{
         private readonly PetModel: Model <Pet>,
      ) {}
 
-    create(data: Partial<Pet>): Promise<Pet>{
-        return this.PetModel.create({
+   async create(data: Partial<Pet>): Promise<Pet>{
+        return await this.PetModel.create({
             ...data,
             updatedAt: new Date (),
             createdAt: new Date ()
