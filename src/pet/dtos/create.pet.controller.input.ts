@@ -1,7 +1,6 @@
-import { IsNotEmpty, IsNotIn, IsString, Max, maxLength } from "class-validator";
+import { IsNotEmpty, IsNotIn, IsString, Max, MaxLength, maxLength } from "class-validator";
 
-export default class createPetControllerInput{
-
+export default class CreatePetControllerInput {
     @IsString()
     @IsNotEmpty()
     name: string;
@@ -20,7 +19,6 @@ export default class createPetControllerInput{
 
     @IsString()
     @IsNotEmpty()
-    @maxLength(1024)
+    @MaxLength(1024)
     bio: string;
-
 }

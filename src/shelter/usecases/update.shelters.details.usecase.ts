@@ -18,15 +18,12 @@ export default class UpdateShelterDetailsUseCase implements IUseCase<UpdateShelt
       const shelter = await this.shelterRepository.get()
 
       return new UpdateShelterDetailsUseCaseOutput({
-         // Spread operator used here...
-         // Properties mus have the same name as the field to be able to use Spread Operator
-         // ...shelter
          name: shelter.name,
          phone: shelter.phone,
          whatsApp: shelter.whatsapp,
          email: shelter.email,
-         updateAt: shelter.updateAt,
-         createdAt: shelter.createAt
+         updatedAt: shelter.updatedAt,
+         createdAt: shelter.createdAt
       })
    }
 }

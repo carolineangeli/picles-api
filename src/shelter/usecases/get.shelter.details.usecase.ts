@@ -12,9 +12,7 @@ export default class GetShelterDetailsUseCase
     private readonly ShelterRepository: IShelterRepository,
   ) {}
 
-  async run(input: null): Promise<GetShelterDetailsUseCaseOutput> {
-    // throw new Error("Method not implemented.");
-    
+  async run(input: null): Promise<GetShelterDetailsUseCaseOutput> {    
     const shelter = await this.ShelterRepository.get();
     console.log(shelter)
     return new GetShelterDetailsUseCaseOutput({
@@ -22,8 +20,8 @@ export default class GetShelterDetailsUseCase
     shelterEmail: shelter.name,
     shelterPhone: shelter.name,
     shelterWhatsApp: shelter.name,
-    createAt: shelter.createAt,
-    updateAt:shelter.updateAt,
+    createdAt: shelter.createdAt,
+    updatedAt:shelter.updatedAt,
   });
  }
 }
