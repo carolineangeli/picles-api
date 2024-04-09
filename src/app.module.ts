@@ -4,6 +4,7 @@ import { AppService } from './app.service';
 import { ShelterModule } from './shelter/shelter.module';
 import { MongooseModule } from '@nestjs/mongoose';
 import { ConfigModule, ConfigService } from '@nestjs/config';
+import { PetModule } from './pet/pet.module';
 
 require('dotenv').config();
 
@@ -18,6 +19,7 @@ require('dotenv').config();
     }),
   }),
   ShelterModule,
+  PetModule,
 ],
   controllers: [AppController],
   providers: [AppService],
