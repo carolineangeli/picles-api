@@ -1,4 +1,4 @@
-import { Body, Controller, Inject, Post } from '@nestjs/common';
+import { Body, Controller, Get, Inject, Param, Post } from '@nestjs/common';
 import CreatePetControllerInput from './dtos/create.pet.controller.input';
 import CreatePetUseCaseOutput from './usecases/dtos/create.pet.usecase.output';
 import CreatePetUseCaseInput from './usecases/dtos/create.pet.usecase.input';
@@ -14,5 +14,10 @@ export class PetController {
   async createPet(@Body() input: CreatePetControllerInput): Promise<CreatePetUseCaseOutput> {
     const useCaseInput = new CreatePetUseCaseInput({...input})
     return await this.createPetUseCase.run(useCaseInput)
+  }
+
+  @Get(':id')
+  async getPet(@Param('id') id: string){
+  console.log(id)
   }
 }
