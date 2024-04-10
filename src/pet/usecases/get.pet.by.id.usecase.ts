@@ -15,7 +15,7 @@ export default class GetPetByIdUseCase implements IUseCase<GetPetByIdUseCaseInpu
     ) { }
 
     async run(input: GetPetByIdUseCaseInput): Promise<GetPetByIdUseCaseOutput> {
-        const pet = await this.GetPetById(input.id)
+        const pet = await this.getPetById(input.id)
 
         if (pet === null) {
             throw new PetNotFoundError()
@@ -34,7 +34,7 @@ export default class GetPetByIdUseCase implements IUseCase<GetPetByIdUseCaseInpu
         });
     }
 
-    private async GetPetById(id: string): Promise<Pet> {
+    private async getPetById(id: string): Promise<Pet> {
         try {
             return await this.petRepository.getById(id)
             } catch (error) {
