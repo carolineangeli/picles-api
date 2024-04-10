@@ -1,4 +1,4 @@
-export default class GetPetByIdUseCaseInput {
+export default class GetPetByIdUseCaseOutput {
     id: string;
     name: string;
     type: string;
@@ -9,7 +9,7 @@ export default class GetPetByIdUseCaseInput {
     createdAt: Date;
     updatedAt: Date;
 
-    constructor(data: Partial<GetPetByIdUseCaseInput>) {
+    constructor(data: Partial<GetPetByIdUseCaseOutput>) {
         Object.assign(this, data);
     }
 }
