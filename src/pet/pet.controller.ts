@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Inject, Param, Post } from '@nestjs/common';
+import { BadRequestException, Body, Controller, Get, Inject, Param, Post } from '@nestjs/common';
 import CreatePetControllerInput from './dtos/create.pet.controller.input';
 import CreatePetUseCaseOutput from './usecases/dtos/create.pet.usecase.output';
 import CreatePetUseCaseInput from './usecases/dtos/create.pet.usecase.input';
@@ -24,7 +24,12 @@ export class PetController {
 
   @Get(':id')
   async getPetById(@Param('id') id: string): Promise<GetPetByIdUseCaseOutput> {
-  const useCaseInput = new GetPetByIdUseCaseInput({id})
-  return await this.GetPetByIdUseCase.run(useCaseInput)
+    try {
+      const useCaseInput = new GetPetByIdUseCaseInput({id})
+      return await this.GetPetByIdUseCase.run(useCaseInput)
+    } catch (error) {
+      throw new BadRequestException(JSON.parse(error.message))
+      
+    }
   }
 }

@@ -5,6 +5,7 @@ import { Pet } from "../schemas/pet.schema";
 import { Inject } from "@nestjs/common";
 import PetTokens from "../pet.tokens";
 import IPetRepository from "../interfaces/pet.repository.interface";
+import PetNotFoundError from "src/domain/errors/pet.not.found.error";
 
 export default class GetPetByIdUseCase implements IUseCase<GetPetByIdUseCaseInput, GetPetByIdUseCaseOutput> {
 
@@ -17,7 +18,7 @@ export default class GetPetByIdUseCase implements IUseCase<GetPetByIdUseCaseInpu
         const pet = await this.GetPetById(input.id)
 
         if (pet === null) {
-            throw new Error('Pet não Encontrado')
+            throw new PetNotFoundError()
         }
 
         return new GetPetByIdUseCaseOutput({
