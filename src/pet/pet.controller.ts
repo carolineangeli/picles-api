@@ -4,11 +4,17 @@ import CreatePetUseCaseOutput from './usecases/dtos/create.pet.usecase.output';
 import CreatePetUseCaseInput from './usecases/dtos/create.pet.usecase.input';
 import { IUseCase } from 'src/domain/iusecase.interface';
 import PetTokens from './pet.tokens';
+import GetPetByIdUseCaseInput from './usecases/dtos/get.pet.by.id.usecase.input';
+import GetPetByIdUseCaseOutput from './usecases/dtos/get.pet.by.id.usecase.output';
 
 @Controller('pet')
 export class PetController {
   @Inject(PetTokens.createPetUseCase)
   private readonly createPetUseCase: IUseCase<CreatePetUseCaseInput, CreatePetUseCaseOutput>
+
+  @Inject(PetTokens.createPetUseCase)
+  private readonly GetPetByIdUseCase: IUseCase<GetPetByIdUseCaseInput, GetPetByIdUseCaseOutput>
+
 
   @Post()
   async createPet(@Body() input: CreatePetControllerInput): Promise<CreatePetUseCaseOutput> {
@@ -17,7 +23,8 @@ export class PetController {
   }
 
   @Get(':id')
-  async getPet(@Param('id') id: string){
-  console.log(id)
+  async getPetById(@Param('id') id: string): Promise<GetPetByIdUseCaseOutput> {
+  const useCaseInput = new GetPetByIdUseCaseInput({id})
+  return await this.GetPetByIdUseCase.run(useCaseInput)
   }
 }

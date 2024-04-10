@@ -6,11 +6,16 @@ import { Model } from "mongoose"
 export default class PetRepository implements IPetRepository{
     constructor(
         @InjectModel(Pet.name)
-        private readonly PetModel: Model <Pet>,
+        private readonly petModel: Model <Pet>,
      ) {}
 
+     async getById(id: string): Promise<Pet> {
+        return await this.petModel.findById(id)
+         
+     }
+
    async create(data: Partial<Pet>): Promise<Pet>{
-        return await this.PetModel.create({
+        return await this.petModel.create({
             ...data,
             updatedAt: new Date (),
             createdAt: new Date ()
