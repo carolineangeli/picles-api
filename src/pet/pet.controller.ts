@@ -44,7 +44,7 @@ export class PetController {
   }
 
   @Put(':id')
-  async updatePet(@Body() input: UpdatePetControllerInput, @Param('id') id: string): Promise<UpdatePetByIdUseCaseOutput>{
+  async updatePet(@Body() input: UpdatePetControllerInput, @Param('id') id: string): Promise<UpdatePetByIdUseCaseOutput> {
     try {
       const useCaseInput = new UpdatePetByIdUseCaseInput({
         ...input,
@@ -59,7 +59,14 @@ export class PetController {
   }
 
   @Delete(':id')
-  async deletePet(@Param('id') id: string) {
+  async deletePet(@Param('id') id: string): Promise<DeletePetByIdUseCaseOutput> {
+    try {
+      const useCaseInput = new DeletePetByIdUseCaseInput({ id })
+      return await this.deletePetByIdUseCase.run(useCaseInput)
+    } catch (error) {
+
+      throw new BadRequestException(JSON.parse(error.message))
+    }
 
   }
 }
