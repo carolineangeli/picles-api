@@ -1,4 +1,4 @@
-import { BadRequestException, Body, Controller, Delete, Get, Inject, Param, Patch, Post, Put } from '@nestjs/common';
+import { BadRequestException, Body, Controller, Delete, Get, Inject, Param, Patch, Post, Put, UploadedFile, UseInterceptors } from '@nestjs/common';
 import CreatePetControllerInput from './dtos/create.pet.controller.input';
 import CreatePetUseCaseOutput from './usecases/dtos/create.pet.usecase.output';
 import CreatePetUseCaseInput from './usecases/dtos/create.pet.usecase.input';
@@ -11,6 +11,8 @@ import UpdatePetByIdUseCaseInput from './usecases/dtos/update.put.by.id.usecase.
 import UpdatePetByIdUseCaseOutput from './usecases/dtos/update.put.by.id.usecase.output';
 import DeletePetByIdUseCaseInput from './usecases/dtos/delete.pet.by.id.usecase.input';
 import DeletePetByIdUseCaseOutput from './usecases/dtos/delete.pet.by.id.usecase.output';
+import { FileInterceptor } from '@nestjs/platform-express';
+import multerConfig from 'src/config/multer.config';
 
 @Controller('pet')
 export class PetController {
@@ -67,6 +69,14 @@ export class PetController {
 
       throw new BadRequestException(JSON.parse(error.message))
     }
+  }
 
+  @Patch(':id/photo')
+  @UseInterceptors(FileInterceptor('photo', multerConfig))
+  updatePhoto(
+      @UploadedFile() photo: Express.Multer.File,
+      @Param('id') id: string,
+  ){
+    console.log(photo, id)
   }
 }
