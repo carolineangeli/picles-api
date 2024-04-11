@@ -9,6 +9,8 @@ import GetPetByIdUseCaseOutput from './usecases/dtos/get.pet.by.id.usecase.outpu
 import UpdatePetControllerInput from './dtos/update.pet.controller.input';
 import UpdatePetByIdUseCaseInput from './usecases/dtos/update.put.by.id.usecase.input';
 import UpdatePetByIdUseCaseOutput from './usecases/dtos/update.put.by.id.usecase.output';
+import DeletePetByIdUseCaseInput from './usecases/dtos/delete.pet.by.id.usecase.input';
+import DeletePetByIdUseCaseOutput from './usecases/dtos/delete.pet.by.id.usecase.output';
 
 @Controller('pet')
 export class PetController {
@@ -20,6 +22,9 @@ export class PetController {
 
   @Inject(PetTokens.updatePetByIdUseCase)
   private readonly updatePetByIdUseCase: IUseCase<UpdatePetByIdUseCaseInput, UpdatePetByIdUseCaseOutput>
+
+  @Inject(PetTokens.deletePetByIdUseCase)
+  private readonly deletePetByIdUseCase: IUseCase<DeletePetByIdUseCaseInput, DeletePetByIdUseCaseOutput>
 
   @Post()
   async createPet(@Body() input: CreatePetControllerInput): Promise<CreatePetUseCaseOutput> {
