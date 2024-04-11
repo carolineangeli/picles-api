@@ -17,9 +17,9 @@ export default class GetShelterDetailsUseCase
     console.log(shelter)
     return new GetShelterDetailsUseCaseOutput({
     shelterName: shelter.name,
-    shelterEmail: shelter.name,
-    shelterPhone: shelter.name,
-    shelterWhatsApp: shelter.name,
+    shelterEmail: shelter.email,
+    shelterPhone: shelter.phone,
+    shelterWhatsApp: shelter.whatsapp,
     createdAt: shelter.createdAt,
     updatedAt:shelter.updatedAt,
   });
