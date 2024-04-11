@@ -39,12 +39,22 @@ export class PetController {
   }
 
   @Put(':id')
-  async updatePet(@Body() input: UpdatePetControllerInput, @Param('id') id: string): Promise<UpdatePetByIdUseCaseOutput> {
-    const useCaseInput = new UpdatePetByIdUseCaseInput({
-      ...input,
-      id
-    })
+  async updatePet(@Body() input: UpdatePetControllerInput, @Param('id') id: string): Promise<UpdatePetByIdUseCaseOutput>{
+    try {
+      const useCaseInput = new UpdatePetByIdUseCaseInput({
+        ...input,
+        id
+      })
 
-    return await this.updatePetByIdUseCase.run(useCaseInput)
+      return await this.updatePetByIdUseCase.run(useCaseInput)
+
+    } catch (error) {
+      throw new BadRequestException(JSON.parse(error.message))
+    }
+  }
+
+  @Delete(':id')
+  async deletePet(@Param('id') id: string) {
+
   }
 }

@@ -1,7 +1,7 @@
 import { IUseCase } from "src/domain/iusecase.interface";
 import UpdatePetByIdUseCaseInput from "./dtos/update.put.by.id.usecase.input";
 import UpdatePetByIdUseCaseOutput from "./dtos/update.put.by.id.usecase.output";
-import { Inject, Injectable } from "@nestjs/common";
+import { Delete, Inject, Injectable } from "@nestjs/common";
 import PetNotFoundError from "src/domain/errors/pet.not.found.error";
 import { Pet } from "../schemas/pet.schema";
 import IPetRepository from "../interfaces/pet.repository.interface";
@@ -51,4 +51,5 @@ export default class UpdatePetByIdUseCase implements IUseCase<UpdatePetByIdUseCa
         }
 
     }
+
 }
