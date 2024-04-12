@@ -15,6 +15,7 @@ import { FileInterceptor } from '@nestjs/platform-express';
 import multerConfig from 'src/config/multer.config';
 import UpdatePetPhotoByIdUseCaseInput from './usecases/dtos/update.pet.photo.by.Id.usecase.input';
 import UpdatePetPhotoByIdUseCaseOutput from './usecases/dtos/update.pet.photo.by.Id.usecase.output';
+import GetPetsUseCaseInput from './usecases/dtos/get.pets.usecase.input';
 
 @Controller('pet')
 export class PetController {
@@ -49,6 +50,14 @@ export class PetController {
   ){
     const FIST_PAGE = 1
     const DEFAULT_ITENS_PER_PAGE = 10
+    const useCaseInput = new GetPetsUseCaseInput({
+      type: !!type ? type: null,
+      size: !!size ? size: null,
+      gender: !!gender ? gender: null,
+      page: !!page ? parseInt(page): FIST_PAGE,
+      itemsPerPage: !! itemsPerPage ? parseInt(itemsPerPage): DEFAULT_ITENS_PER_PAGE
+      
+    })
 
   }
 
