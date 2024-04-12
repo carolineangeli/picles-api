@@ -1,42 +1,31 @@
-import { Injectable } from "@nestjs/common";
-import { InjectModel } from "@nestjs/mongoose";
-import { Model } from "mongoose";
-import IPetRepository from "../interfaces/pet.repository.interface";
 import { Pet } from "../schemas/pet.schema";
 
-@Injectable()
-export default class PetRepository implements IPetRepository {
+export default class PetResponse {
+  id: string;
+  name: string;
+  type: string;
+  size: string;
+  gender: string;
+  bio: string;
+  photo: string;
+  createdAt: Date;
+  updatedAt: Date;
 
-    constructor(
-        @InjectModel(Pet.name)
-        private readonly petModel: Model<Pet>,
-    ) { }
+  static fromPet(data: Pet): PetResponse {
+    return new PetResponse({
+      id: data._id,
+      name: data.name,
+      type: data.type,
+      size: data.size,
+      gender: data.gender,
+      bio: data.bio,
+      photo: data.photo,
+      createdAt: data.createdAt,
+      updatedAt: data.updatedAt,
+    });
+  }
 
-    async getById(id: string): Promise<Pet> {
-        return await this.petModel.findById(id)
-    }
-
-    async create(data: Partial<Pet>): Promise<Pet> {
-        return await this.petModel.create({
-            ...data,
-            createdAt: new Date(),
-            updatedAt: new Date()
-        })
-    }
-
-    async updateById(data: Partial<Pet>): Promise<void> {
-        await this.petModel.updateOne(
-            {
-                _id: data._id
-            }, {
-            ...data,
-            updatedAt: new Date()
-        }
-        )
-    }
-
-    async deleteById(id: string): Promise<void> {
-        await this.petModel.findByIdAndDelete(id)
-    }
-
+  constructor (data: Partial<PetResponse>) {
+    Object.assign(this, data);
+  }
 }
