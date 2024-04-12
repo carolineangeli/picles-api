@@ -1,4 +1,4 @@
-import { BadRequestException, Body, Controller, Delete, Get, Inject, Param, Patch, Post, Put, UploadedFile, UseInterceptors } from '@nestjs/common';
+import { BadRequestException, Body, Controller, Delete, Get, Inject, Param, Patch, Post, Put, Query, UploadedFile, UseInterceptors } from '@nestjs/common';
 import CreatePetControllerInput from './dtos/create.pet.controller.input';
 import CreatePetUseCaseOutput from './usecases/dtos/create.pet.usecase.output';
 import CreatePetUseCaseInput from './usecases/dtos/create.pet.usecase.input';
@@ -37,6 +37,19 @@ export class PetController {
   async createPet(@Body() input: CreatePetControllerInput): Promise<CreatePetUseCaseOutput> {
     const useCaseInput = new CreatePetUseCaseInput({ ...input })
     return await this.createPetUseCase.run(useCaseInput)
+  }
+
+  @Get()
+  async getPets(
+    @Query('type') type ?: string,
+    @Query('size') size ?: string,
+    @Query('gender') gender ?: string,
+    @Query('page') page ?: string,
+    @Query('itemsPerPage') itemsPerPage ?: string,
+  ){
+    const FIST_PAGE = 1
+    const DEFAULT_ITENS_PER_PAGE = 10
+
   }
 
   @Get(':id')
