@@ -8,8 +8,8 @@ export default class CreatePetUseCaseOutput {
     photo: string;
     createdAt: Date;
     updatedAt: Date;
-
+  
     constructor(data: Partial<CreatePetUseCaseOutput>) {
-        Object.assign(this, data);
+      Object.assign(this, data);
     }
-}
+  }
