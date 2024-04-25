@@ -14,12 +14,11 @@ export default class GetShelterDetailsUseCase
 
   async run(input: null): Promise<GetShelterDetailsUseCaseOutput> {    
     const shelter = await this.ShelterRepository.get();
-    console.log(shelter)
     return new GetShelterDetailsUseCaseOutput({
     shelterName: shelter.name,
     shelterEmail: shelter.email,
     shelterPhone: shelter.phone,
-    shelterWhatsApp: shelter.whatsapp,
+    shelterWhatsApp: shelter.whatsApp,
     createdAt: shelter.createdAt,
     updatedAt:shelter.updatedAt,
   });
